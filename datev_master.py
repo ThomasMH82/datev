@@ -20,7 +20,7 @@ def replace_comma(s):
 
 # Upload der Datei
 if uploaded_file is not None:
-    df = pd.read_excel(uploaded_file, engine='openpyxl', skiprows=1, usecols="A:C,G:H,J,N,BG")
+    df = pd.read_csv(uploaded_file)
     #bearbieten der Datei für die weiterverwendung
     df.columns.values[0] = 'Umsatz'
     df.columns.values[4] = 'Gegenkonto'
