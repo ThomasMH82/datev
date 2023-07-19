@@ -9,18 +9,23 @@ import pandas as pd
 st.set_page_config(page_title="Datev Auswertung", page_icon=':bar_chart:', layout='wide')
 
 #Uploadmöglichkeit initialisieren
-uploaded_file = st.sidebar.file_uploader("Bitte Datei hochladen", type=['xlsx'])
+uploaded_file = st.sidebar.file_uploader("Bitte Datei hochladen", type=['csv'])
 
-#def replace_comma(s):
- #   if isinstance(s, str):
-  #      return s.replace(',', '.')
-   # else:
-    #    return s
+def replace_comma(s):
+    if isinstance(s, str):
+        return s.replace(',', '.')
+    else:
+        return s
 
 #Upload der Datei
 if uploaded_file is not None:
+    # Speichern der CSV-Datei als temporäre XLSX-Datei
+    temp_file_path = os.path.join('temp', 'temp_data.xlsx')
+    with open(temp_file_path, 'wb') as f:
+        f.write(uploaded_file.getvalue())
+
     df = pd.read_excel(
-        io=uploaded_file,
+        io=temp_file_path,
         engine="openpyxl",
         skiprows=1,
         usecols="A:C,G:H,J,N,BG",
@@ -118,9 +123,10 @@ if uploaded_file is not None:
     st.markdown("----")
     #col1, col2 = st.columns(2)  # creating 2 columns in Streamlit
     st.plotly_chart(fig_monats_bar, use_container_width=True)
+    os.remove(temp_file_path)
    # col2.plotly_chart(fig_monats_bar, user_container_width=True)
    #st.dataframe(df)
-   
+      
 #     html = f"""
 #     <html>
 #     <body>
