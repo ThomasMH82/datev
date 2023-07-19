@@ -11,11 +11,11 @@ st.set_page_config(page_title="Datev Auswertung", page_icon=':bar_chart:', layou
 #Uploadmöglichkeit initialisieren
 uploaded_file = st.sidebar.file_uploader("Bitte Datei hochladen", type=['xlsx'])
 
-def replace_comma(s):
-    if isinstance(s, str):
-        return s.replace(',', '.')
-    else:
-        return s
+#def replace_comma(s):
+ #   if isinstance(s, str):
+  #      return s.replace(',', '.')
+   # else:
+    #    return s
 
 #Upload der Datei
 if uploaded_file is not None:
