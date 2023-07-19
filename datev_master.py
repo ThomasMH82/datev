@@ -20,21 +20,7 @@ def replace_comma(s):
 
 # Upload der Datei
 if uploaded_file is not None:
-    # Erstellen des temporären Verzeichnisses
-    temp_dir = "temp"
-    os.makedirs(temp_dir, exist_ok=True)
-
-    # Speichern der CSV-Datei als temporäre XLSX-Datei
-    temp_file_path = os.path.join(temp_dir, 'temp_data.xlsx')
-    with open(temp_file_path, 'wb') as f:
-        f.write(uploaded_file.getvalue())
-
-    df = pd.read_excel(
-        io=temp_file_path,
-        engine="openpyxl",
-        skiprows=1,
-        usecols="A:C,G:H,J,N,BG",
-    )
+    df = pd.read_excel(uploaded_file, engine='openpyxl', skiprows=1, usecols="A:C,G:H,J,N,BG")
     #bearbieten der Datei für die weiterverwendung
     df.columns.values[0] = 'Umsatz'
     df.columns.values[4] = 'Gegenkonto'
