@@ -20,7 +20,7 @@ def replace_comma(s):
 
 # Upload der Datei
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, encoding='utf-8')
+    df = pd.read_csv(uploaded_file, sep=";",encoding='utf-8')
     #bearbieten der Datei für die weiterverwendung
     df.columns.values[0] = 'Umsatz'
     df.columns.values[4] = 'Gegenkonto'
