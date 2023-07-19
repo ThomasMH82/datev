@@ -1,6 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import os
 #import pdfkit
 #import base64
 #from io import BytesIO
@@ -17,10 +18,14 @@ def replace_comma(s):
     else:
         return s
 
-#Upload der Datei
+# Upload der Datei
 if uploaded_file is not None:
+    # Erstellen des temporären Verzeichnisses
+    temp_dir = "temp"
+    os.makedirs(temp_dir, exist_ok=True)
+
     # Speichern der CSV-Datei als temporäre XLSX-Datei
-    temp_file_path = os.path.join('temp', 'temp_data.xlsx')
+    temp_file_path = os.path.join(temp_dir, 'temp_data.xlsx')
     with open(temp_file_path, 'wb') as f:
         f.write(uploaded_file.getvalue())
 
@@ -124,6 +129,7 @@ if uploaded_file is not None:
     #col1, col2 = st.columns(2)  # creating 2 columns in Streamlit
     st.plotly_chart(fig_monats_bar, use_container_width=True)
     os.remove(temp_file_path)
+    os.rmdir(temp_dir)
    # col2.plotly_chart(fig_monats_bar, user_container_width=True)
    #st.dataframe(df)
       
