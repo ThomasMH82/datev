@@ -51,6 +51,14 @@ if uploaded_file is not None:
       return '{:,.2f} €'.format(total), '{:,.2f} €'.format(steuer7), '{:,.2f} €'.format(netto7)
   
   monat7gesamt, steuer7, netto7 = berechung7monat(df)
+
+  def liste7tageweise(df):
+    monat7liste = df[(df['Gegenkonto'].isin(['7%'])) & (df['Soll-Haben'] == 'Soll')]
+    grouped7liste = monat7liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
+    
+    return '{:,.f} €'.format(grouped7liste)
+
+  grouped7liste = liste7tageweise(df)      
   
   def berechung19monat(df):
       monat19 = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
@@ -92,6 +100,8 @@ if uploaded_file is not None:
   col2.subheader(f"Steuer 19%: {steuer19}")
   col2.subheader(f"Netto 19%: {netto19}")
   st.markdown("---------")    
+  col1.subheader("Umsatz tageweise 7%")
+  col1.subheader(grouped7liste)
   #Grafik
   st.markdown("##")
   st.plotly_chart(fig_monats_bar, use_container_width=True)
