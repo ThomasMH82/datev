@@ -126,7 +126,7 @@ if uploaded_file is not None:
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
   st.markdown("---")
 
-   df_pdf_output = {
+  df_pdf_output = {
     'Monat 7% Gesamt': monat7gesamt,
     'Steuer 7%': steuer7,
     'Netto 7%': netto7,
@@ -136,7 +136,7 @@ if uploaded_file is not None:
     'Netto 19%': netto19,
     'Tägliche Umsatzliste 19%': grouped19liste,
     #'Täglicher Gesamtumsatz': tagesumsatz_df
-  }
+    }
 
 
   def df_to_pdf(df_pdf_output):
