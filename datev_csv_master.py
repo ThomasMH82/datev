@@ -55,6 +55,7 @@ if uploaded_file is not None:
   def liste7tageweise(df):
     monat7liste = df[(df['Gegenkonto'].isin(['7%'])) & (df['Soll-Haben'] == 'Soll')]
     grouped7liste = monat7liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
+    grouped7liste['Umsatz'] = grouped7liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
     return (grouped7liste)
 
