@@ -73,11 +73,11 @@ if uploaded_file is not None:
   monat19gesamt, steuer19, netto19 = berechung19monat(df)
 
     def liste19tageweise(df):
-    monat19liste = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
-    grouped19liste = monat19liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
-    grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
+      monat19liste = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
+      grouped19liste = monat19liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
+      grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
-    return (grouped19liste)
+      return (grouped19liste)
 
   grouped19liste = liste19tageweise(df) 
 
