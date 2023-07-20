@@ -103,12 +103,12 @@ if uploaded_file is not None:
   #KPI´s
   col1 , col2 = st.columns(2)
    
-  col1.subheader(f"Umsatz 7%: {monat7gesamt}")
-  col1.subheader(f"Steuer 7%: {steuer7}")
-  col1.subheader(f"Netto 7%:  {netto7}")
-  col2.subheader(f"Umsatz 19%:  {monat19gesamt}")
-  col2.subheader(f"Steuer 19%: {steuer19}")
-  col2.subheader(f"Netto 19%: {netto19}")
+  col1.subheader(f"Umsatz 7%: {monat7gesamt}",use_container_width=True)
+  col1.subheader(f"Steuer 7%: {steuer7}",use_container_width=True)
+  col1.subheader(f"Netto 7%:  {netto7}",use_container_width=True)
+  col2.subheader(f"Umsatz 19%:  {monat19gesamt}",use_container_width=True)
+  col2.subheader(f"Steuer 19%: {steuer19}",use_container_width=True)
+  col2.subheader(f"Netto 19%: {netto19}",use_container_width=True)
   st.markdown("---")    
   col1.write("Umsatz 7% tageweise")
   col1.dataframe(grouped7liste, use_container_width=True)
