@@ -1,6 +1,9 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import pdfkit
+import base64
+from tempfile import NamedTemporaryFile
 
 #Seiteneinstellungen
 st.set_page_config(page_title="Datev Auswertung", page_icon=':bar_chart:', layout='wide')
@@ -123,6 +126,36 @@ if uploaded_file is not None:
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
   st.markdown("---")
 
+  def df_to_pdf(df):
+    # Save the dataframe as HTML file
+    with NamedTemporaryFile(delete=False, suffix='.html') as f:
+        df.to_html(f)
+    
+    # Convert the HTML file to PDF
+    pdfkit.from_file(f.name, 'output.pdf')
+
+  # Call the function with your dataframe
+  df_to_pdf(df)
+
+  # Function to get download link for the pdf
+  def get_pdf_download_link(pdf_file, download_name):
+    with open(pdf_file, 'rb') as f:
+        pdf = f.read()
+    
+    # b64 encode
+    b64 = base64.b64encode(pdf)
+    b64 = b64.decode()
+    
+    href = f'<a href="data:file/pdf;base64,{b64}" download="{download_name}.pdf">Download PDF</a>'
+    return href
+
+  # Call the function to generate download link
+  download_link = get_pdf_download_link('output.pdf', 'output')
+  st.sidebar.markdown(download_link, unsafe_allow_html=True)
+  
+  
+
+  
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
