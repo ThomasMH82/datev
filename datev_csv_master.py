@@ -111,9 +111,9 @@ if uploaded_file is not None:
   col2.subheader(f"Netto 19%: {netto19}")
   st.markdown("---")    
   col1.write("Umsatz 7% tageweise")
-  col1.dataframe(grouped7liste)
+  col1.dataframe(grouped7liste, use_container_width=True)
   col2.write("Umsatz 19% tageweise")
-  col2.dataframe(grouped19liste)
+  col2.dataframe(grouped19liste, use_container_width=True)
   #Grafik
   st.markdown("##")
   st.plotly_chart(fig_monats_bar, use_container_width=True)
