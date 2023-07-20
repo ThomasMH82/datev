@@ -128,17 +128,13 @@ if uploaded_file is not None:
 
   def df_to_pdf(df):
     # Save the dataframe as HTML file
-    def df_to_pdf(df):
     # Convert the dataframe to HTML string
-    html_string = df.to_html()
+      html_string = df.to_html()
 
     # Convert the HTML string to PDF
-    pdfkit.from_string(html_string, 'output.pdf')
+      pdfkit.from_string(html_string, 'output.pdf')
     
-    # Convert the HTML file to PDF
-    pdfkit.from_file(f.name, 'output.pdf')
-
-  # Call the function with your dataframe
+    # Call the function with your dataframe
   df_to_pdf(df)
 
   # Function to get download link for the pdf
