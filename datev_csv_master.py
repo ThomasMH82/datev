@@ -126,16 +126,28 @@ if uploaded_file is not None:
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
   st.markdown("---")
 
-  def df_to_pdf(df):
+  monat7_df = pd.DataFrame({'Monat 7% Gesamt': [monat7gesamt], 'Steuer 7%': [steuer7], 'Netto 7%': [netto7]})
+  grouped7liste_df = grouped7liste.reset_index().rename(columns={'Umsatz': 'Täglicher Umsatz 7%'})
+
+  monat19_df = pd.DataFrame({'Monat 19% Gesamt': [monat19gesamt], 'Steuer 19%': [steuer19], 'Netto 19%': [netto19]})
+  grouped19liste_df = grouped19liste.reset_index().rename(columns={'Umsatz': 'Täglicher Umsatz 19%'})
+
+  tagesumsatz_df = tagesumsatz_df.rename(columns={'Belegdatum': 'Datum', 'Umsatz': 'Täglicher Gesamtumsatz'})
+
+  # Nun fügen wir diese Datenframes zusammen
+  df_pdf_output = pd.concat([monat7_df, monat19_df, grouped7liste_df, grouped19liste_df, tagesumsatz_df], axis=1)
+
+
+  def df_to_pdf(df_pdf_output):
     # Save the dataframe as HTML file
     # Convert the dataframe to HTML string
-      html_string = df.to_html()
+      html_string = df_pdf_output.to_html()
 
     # Convert the HTML string to PDF
       pdfkit.from_string(html_string, 'output.pdf')
     
     # Call the function with your dataframe
-  df_to_pdf(df)
+  df_to_pdf(df_pdf_output)
 
   # Function to get download link for the pdf
   def get_pdf_download_link(pdf_file, download_name):
