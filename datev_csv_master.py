@@ -72,6 +72,15 @@ if uploaded_file is not None:
   
   monat19gesamt, steuer19, netto19 = berechung19monat(df)
 
+    def liste19tageweise(df):
+    monat19liste = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
+    grouped19liste = monat19liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
+    grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
+    
+    return (grouped19liste)
+
+  grouped19liste = liste19tageweise(df) 
+
   def tagesumsatzgesamt(df):
         df['Belegdatum'] = pd.to_datetime(df['Belegdatum'], format='%d.%m.%Y')
         tagesumsatz = df.groupby(df['Belegdatum'].dt.date)['Umsatz'].sum()
@@ -103,6 +112,8 @@ if uploaded_file is not None:
   st.markdown("---")    
   col1.write("Umsatz 7% tageweise")
   col1.dataframe(grouped7liste)
+  col2.write("Umsatz 19% tageweise")
+  col2.dataframe(grouped19liste)
   #Grafik
   st.markdown("##")
   st.plotly_chart(fig_monats_bar, use_container_width=True)
