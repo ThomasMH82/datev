@@ -130,7 +130,7 @@ if uploaded_file is not None:
 
   # ---- Mainpage ----
   st.title("Datev Board")
-  st.divider()
+  #st.divider()
   #KPI´s
   col1 , col2 = st.columns(2)
    
