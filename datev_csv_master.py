@@ -130,7 +130,7 @@ if uploaded_file is not None:
 
   # ---- Mainpage ----
   st.title("Datev Board")
-  st.divider()
+  #st.divider()
   #KPI´s
   col1 , col2 = st.columns(2)
    
@@ -140,7 +140,7 @@ if uploaded_file is not None:
   col2.subheader(f"Umsatz 19%:  {monat19gesamt}")
   col2.subheader(f"Steuer 19%: {steuer19}")
   col2.subheader(f"Netto 19%: {netto19}")
-  st.divider() 
+  #st.divider() 
   st.title("Umsatz tageweise")
   col1_1 , col2_1 = st.columns(2)
   col1_1.write("Umsatz 7% tageweise")
@@ -152,9 +152,9 @@ if uploaded_file is not None:
   #Grafik
   st.divider()
   st.table(stb_umstz)
-  st.divider()
+  #st.divider()
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
-  st.divider()
+  #st.divider()
 
   df_pdf_output = {
     'Monat 7% Gesamt': monat7gesamt,
