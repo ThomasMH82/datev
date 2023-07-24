@@ -152,7 +152,7 @@ if uploaded_file is not None:
   #Grafik
   #st.divider()
   st.table(stb_umstz)
-  st.divider("trennung")
+  #st.divider("trennung")
   #st.divider()
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
   
