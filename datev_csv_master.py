@@ -150,11 +150,14 @@ if uploaded_file is not None:
   #col2.dataframe(grouped19liste)
   col2_1.table(grouped19liste)
   #Grafik
-  st.divider()
+  #st.divider()
   st.table(stb_umstz)
+  st.divider("trennung")
   #st.divider()
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
-  #st.divider()
+  
+
+  
 
   df_pdf_output = {
     'Monat 7% Gesamt': monat7gesamt,
