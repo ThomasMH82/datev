@@ -100,6 +100,31 @@ if uploaded_file is not None:
       color_discrete_sequence=["#0083B8"]*len(tagesumsatz_df),
       template="plotly_white")
 
+  def stb_pivot(df):
+    # Stellen Sie sicher, dass 'Belegdatum' im richtigen Datumsformat ist
+    df['Belegdatum'] = pd.to_datetime(df['Belegdatum'], dayfirst=True)
+
+    # Filtern Sie die Daten entsprechend Ihren Kriterien
+    df_filtered = df[(df['Soll-Haben'] == 'Soll') & (df['Gegenkonto'].isin(['7%', '19%']))]
+
+    # Erstellen Sie die Pivot-Tabelle ohne 'Soll-Haben' in der Indexliste
+    pivot_table = df_filtered.pivot_table(values='Umsatz', index=df['Belegdatum'].dt.date, columns=['Gegenkonto'], aggfunc=np.sum, fill_value=0)
+
+    # Hilfsfunktion, um date in datetime zu konvertieren und dann ins ursprüngliche Format zurückzukonvertieren
+    def date_to_string(date, format='%d.%m.%Y'):
+        return pd.to_datetime(date).strftime(format)
+
+    # Wenden Sie die Hilfsfunktion auf den Datumsindex an
+    pivot_table.index = pivot_table.index.map(date_to_string)
+
+    # Formatieren Sie die 'Umsatz'-Werte als Strings mit dem Euro-Symbol
+    pivot_table = pivot_table.applymap(lambda x: f"{x:.2f}€")
+    
+    return pivot_table
+
+# Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
+stb_umstz = stb_pivot(df)
+
   # ---- Mainpage ----
   st.title("Datev Board")
   st.markdown("##")
@@ -122,6 +147,8 @@ if uploaded_file is not None:
   #col2.dataframe(grouped19liste)
   col2_1.table(grouped19liste)
   #Grafik
+  st.markdown("##")
+  st.table(stb_umstz)
   st.markdown("##")
   #st.plotly_chart(fig_monats_bar, use_container_width=True)
   st.markdown("---")
