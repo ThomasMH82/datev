@@ -102,25 +102,26 @@ if uploaded_file is not None:
 
   def stb_pivot(df):
     # Stellen Sie sicher, dass 'Belegdatum' im richtigen Datumsformat ist
-    df['Belegdatum'] = pd.to_datetime(df['Belegdatum'], dayfirst=True)
+      df['Belegdatum'] = pd.to_datetime(df['Belegdatum'], dayfirst=True)
 
-    # Filtern Sie die Daten entsprechend Ihren Kriterien
-    df_filtered = df[(df['Soll-Haben'] == 'Soll') & (df['Gegenkonto'].isin(['7%', '19%']))]
+        # Filtern Sie die Daten entsprechend Ihren Kriterien
+      df_filtered = df[(df['Soll-Haben'] == 'Soll') & (df['Gegenkonto'].isin(['7%', '19%']))]
 
-    # Erstellen Sie die Pivot-Tabelle ohne 'Soll-Haben' in der Indexliste
-    pivot_table = df_filtered.pivot_table(values='Umsatz', index=df['Belegdatum'].dt.date, columns=['Gegenkonto'], aggfunc=np.sum, fill_value=0)
+        # Erstellen Sie die Pivot-Tabelle ohne 'Soll-Haben' in der Indexliste
+      pivot_table = df_filtered.pivot_table(values='Umsatz', index=df['Belegdatum'].dt.date, columns=['Gegenkonto'], aggfunc=np.sum, fill_value=0)
 
-    # Hilfsfunktion, um date in datetime zu konvertieren und dann ins ursprüngliche Format zurückzukonvertieren
-    def date_to_string(date, format='%d.%m.%Y'):
+        # Hilfsfunktion, um date in datetime zu konvertieren und dann ins ursprüngliche Format zurückzukonvertieren
+      def date_to_string(date, format='%d.%m.%Y'):
         return pd.to_datetime(date).strftime(format)
 
-    # Wenden Sie die Hilfsfunktion auf den Datumsindex an
-    pivot_table.index = pivot_table.index.map(date_to_string)
+        # Wenden Sie die Hilfsfunktion auf den Datumsindex an
+      pivot_table.index = pivot_table.index.map(date_to_string)
 
-    # Formatieren Sie die 'Umsatz'-Werte als Strings mit dem Euro-Symbol
-    pivot_table = pivot_table.applymap(lambda x: f"{x:.2f}€")
-    
-    return pivot_table
+        # Formatieren Sie die 'Umsatz'-Werte als Strings mit dem Euro-Symbol
+      pivot_table = pivot_table.applymap(lambda x: f"{x:.2f}€")
+        
+      return pivot_table
+        
 
   # Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
   stb_umstz = stb_pivot(df)
