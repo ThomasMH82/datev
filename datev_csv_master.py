@@ -140,7 +140,7 @@ if uploaded_file is not None:
   col2.subheader(f"Umsatz 19%:  {monat19gesamt}")
   col2.subheader(f"Steuer 19%: {steuer19}")
   col2.subheader(f"Netto 19%: {netto19}")
-  st.divider() 
+  #st.divider() 
   st.title("Umsatz tageweise")
   col1_1 , col2_1 = st.columns(2)
   col1_1.write("Umsatz 7% tageweise")
