@@ -122,8 +122,8 @@ if uploaded_file is not None:
     
     return pivot_table
 
-# Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
-stb_umstz = stb_pivot(df)
+  # Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
+  stb_umstz = stb_pivot(df)
 
   # ---- Mainpage ----
   st.title("Datev Board")
