@@ -56,14 +56,14 @@ if uploaded_file is not None:
   
   monat7gesamt, steuer7, netto7 = berechung7monat(df)
 
-  def liste7tageweise(df):
-    monat7liste = df[(df['Gegenkonto'].isin(['7%'])) & (df['Soll-Haben'] == 'Soll')]
-    grouped7liste = monat7liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
-    grouped7liste['Umsatz'] = grouped7liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
+  # def liste7tageweise(df):
+  #   monat7liste = df[(df['Gegenkonto'].isin(['7%'])) & (df['Soll-Haben'] == 'Soll')]
+  #   grouped7liste = monat7liste.groupby(by=["Belegdatum"]).sum()[["Umsatz"]]
+  #   grouped7liste['Umsatz'] = grouped7liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
-    return (grouped7liste)
+  #   return (grouped7liste)
 
-  grouped7liste = liste7tageweise(df)      
+  #grouped7liste = liste7tageweise(df)      
   
   def berechung19monat(df):
       monat19 = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
@@ -83,23 +83,23 @@ if uploaded_file is not None:
     
       return (grouped19liste)
 
-  grouped19liste = liste19tageweise(df) 
+  #grouped19liste = liste19tageweise(df) 
 
   def tagesumsatzgesamt(df):
         df['Belegdatum'] = pd.to_datetime(df['Belegdatum'], format='%d.%m.%Y')
         tagesumsatz = df.groupby(df['Belegdatum'].dt.date)['Umsatz'].sum()
         return tagesumsatz.reset_index()
     
-  tagesumsatz_df = tagesumsatzgesamt(df)
+  #tagesumsatz_df = tagesumsatzgesamt(df)
     
-  fig_monats_bar = px.bar(
-      tagesumsatz_df,
-      x="Belegdatum",  # dates on x-axis
-      y="Umsatz",  # sum of sales on y-axis
-      orientation="v",  # making the bar vertical
-      title="<b>Umsatz gesamt</b>",
-      color_discrete_sequence=["#0083B8"]*len(tagesumsatz_df),
-      template="plotly_white")
+  # fig_monats_bar = px.bar(
+  #     tagesumsatz_df,
+  #     x="Belegdatum",  # dates on x-axis
+  #     y="Umsatz",  # sum of sales on y-axis
+  #     orientation="v",  # making the bar vertical
+  #     title="<b>Umsatz gesamt</b>",
+  #     color_discrete_sequence=["#0083B8"]*len(tagesumsatz_df),
+  #     template="plotly_white")
 
   def stb_pivot(df):
     # Stellen Sie sicher, dass 'Belegdatum' im richtigen Datumsformat ist
@@ -142,13 +142,13 @@ if uploaded_file is not None:
   col2.subheader(f"Netto 19%: {netto19}")
   #st.divider() 
   st.title("Umsatz tageweise")
-  col1_1 , col2_1 = st.columns(2)
-  col1_1.write("Umsatz 7% tageweise")
+  #col1_1 , col2_1 = st.columns(2)
+  #col1_1.write("Umsatz 7% tageweise")
   #col1.dataframe(grouped7liste)
-  col1_1.table(grouped7liste)
-  col2_1.write("Umsatz 19% tageweise")
+  #col1_1.table(grouped7liste)
+  #col2_1.write("Umsatz 19% tageweise")
   #col2.dataframe(grouped19liste)
-  col2_1.table(grouped19liste)
+  #col2_1.table(grouped19liste)
   #Grafik
   #st.divider()
   st.table(stb_umstz)
