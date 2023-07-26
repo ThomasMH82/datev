@@ -163,12 +163,12 @@ if uploaded_file is not None:
     'Monat 7% Gesamt': monat7gesamt,
     'Steuer 7%': steuer7,
     'Netto 7%': netto7,
-    'Tägliche Umsatzliste 7%': grouped7liste,
+    #'Tägliche Umsatzliste 7%': grouped7liste,
     'Monat 19% Gesamt': monat19gesamt,
     'Steuer 19%': steuer19,
     'Netto 19%': netto19,
-    'Tägliche Umsatzliste 19%': grouped19liste,
-    #'Täglicher Gesamtumsatz': tagesumsatz_df
+    #'Tägliche Umsatzliste 19%': grouped19liste,
+    'Umsatz per Tag / Steuersatz': stb_umstz
     }
 
 
