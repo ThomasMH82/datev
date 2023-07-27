@@ -117,7 +117,9 @@ if uploaded_file is not None:
 
     # Wenden Sie die Hilfsfunktion auf den Datumsindex an
     pivot_table.index = pivot_table.index.map(date_to_string)
-
+    pivot_table = pivot_table.rename_axis("Datum")
+    pivot_table = pivot_table.rename_axis(columns=None)
+    pivot_table = pivot_table.reindex(columns=['7%', '19%'])
     # Formatieren Sie die 'Umsatz'-Werte als Strings mit dem Euro-Symbol
     pivot_table = pivot_table.applymap(lambda x: f"{x:.2f}€")
     
