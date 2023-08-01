@@ -82,7 +82,7 @@ if uploaded_file is not None:
       grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
       return (grouped19liste)
-
+  umsatzgesamt = monat7gesamt + monat19gesamt
   #grouped19liste = liste19tageweise(df) 
 
   def tagesumsatzgesamt(df):
@@ -132,6 +132,7 @@ if uploaded_file is not None:
 
   # ---- Mainpage ----
   st.title("Datev Board")
+  st.title(f"Umsatz gesamt: {umsatzgesamt}")
   #st.divider()
   #KPI´s
   col1 , col2 = st.columns(2)
@@ -143,6 +144,7 @@ if uploaded_file is not None:
   col2.subheader(f"Steuer 19%: {steuer19}")
   col2.subheader(f"Netto 19%: {netto19}")
   #st.divider() 
+  
   st.title("Umsatz tageweise")
   #col1_1 , col2_1 = st.columns(2)
   #col1_1.write("Umsatz 7% tageweise")
