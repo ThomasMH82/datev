@@ -73,8 +73,16 @@ if uploaded_file is not None:
       netto19 = total1 - steuer19
       
       return '{:,.2f} €'.format(total1), '{:,.2f} €'.format(steuer19), '{:,.2f} €'.format(netto19)
-  
+
   total_19,monat19gesamt, steuer19, netto19 = berechung19monat(df)
+
+  def gesamtsumme(df):
+    gesamt_df = df[(df['Gegenkonto'].isin(['7%', '19%'])) & (df['Soll-Haben'] == 'Soll')]
+    total = gesamt_df['Umsatz'].sum()
+    return '{:,.2f} €'.format(total)
+
+  total_gesamt_euro = gesamtsumme(df)
+
 
   def liste19tageweise(df):
       monat19liste = df[(df['Gegenkonto'].isin(['19%'])) & (df['Soll-Haben'] == 'Soll')]
@@ -82,8 +90,6 @@ if uploaded_file is not None:
       grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
       return (grouped19liste)
-  total_gesamt = total_7 + total_19
-  total_gesamt_euro = '{:,.2f} €'.format(total_gesamt)
   #grouped19liste = liste19tageweise(df) 
 
   def tagesumsatzgesamt(df):
