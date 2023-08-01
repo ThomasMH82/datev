@@ -82,7 +82,7 @@ if uploaded_file is not None:
       grouped19liste['Umsatz'] = grouped19liste['Umsatz'].apply(lambda x: '€{:,.2f}'.format(x))
     
       return (grouped19liste)
-  total_gesamt = total_7 + total_19
+  total_gesamt = total + total1
   total_gesamt_euro = '{:,.2f} €'.format(total_gesamt)
   #grouped19liste = liste19tageweise(df) 
 
