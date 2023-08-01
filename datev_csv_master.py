@@ -54,7 +54,7 @@ if uploaded_file is not None:
   
       return '{:,.2f} €'.format(total), '{:,.2f} €'.format(steuer7), '{:,.2f} €'.format(netto7)
   
-  total_7,monat7gesamt, steuer7, netto7 = berechung7monat(df)
+  monat7gesamt, steuer7, netto7 = berechung7monat(df)
 
   # def liste7tageweise(df):
   #   monat7liste = df[(df['Gegenkonto'].isin(['7%'])) & (df['Soll-Haben'] == 'Soll')]
@@ -74,7 +74,7 @@ if uploaded_file is not None:
       
       return '{:,.2f} €'.format(total1), '{:,.2f} €'.format(steuer19), '{:,.2f} €'.format(netto19)
 
-  total_19,monat19gesamt, steuer19, netto19 = berechung19monat(df)
+  monat19gesamt, steuer19, netto19 = berechung19monat(df)
 
   def gesamtsumme(df):
     gesamt_df = df[(df['Gegenkonto'].isin(['7%', '19%'])) & (df['Soll-Haben'] == 'Soll')]
