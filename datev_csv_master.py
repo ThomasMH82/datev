@@ -2,9 +2,9 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import numpy as np
-import pdfkit
-import base64
-from tempfile import NamedTemporaryFile
+#import pdfkit
+#import base64
+#from tempfile import NamedTemporaryFile
 
 #Seiteneinstellungen
 st.set_page_config(page_title="Datev Auswertung", page_icon=':bar_chart:', layout='wide')
@@ -170,49 +170,49 @@ if uploaded_file is not None:
 
   
 
-  df_pdf_output = {
-    'Monat 7% Gesamt': monat7gesamt,
-    'Steuer 7%': steuer7,
-    'Netto 7%': netto7,
+ # df_pdf_output = {
+  #  'Monat 7% Gesamt': monat7gesamt,
+   # 'Steuer 7%': steuer7,
+    #'Netto 7%': netto7,
     #'Tägliche Umsatzliste 7%': grouped7liste,
-    'Monat 19% Gesamt': monat19gesamt,
-    'Steuer 19%': steuer19,
-    'Netto 19%': netto19,
+    #'Monat 19% Gesamt': monat19gesamt,
+    #'Steuer 19%': steuer19,
+    #'Netto 19%': netto19,
     #'Tägliche Umsatzliste 19%': grouped19liste,
-    'Umsatz per Tag / Steuersatz': stb_umstz
-    }
+    #'Umsatz per Tag / Steuersatz': stb_umstz
+    #}
 
 
-  def df_to_pdf(df_dict):
+ # def df_to_pdf(df_dict):
     # Convert the dictionary to HTML string
-    html_string = ''
-    for key in df_dict:
-        if isinstance(df_dict[key], pd.DataFrame):
-            html_string += df_dict[key].to_html()
-        else:
-            html_string += f'<p>{key}: {df_dict[key]}</p>'
+  #  html_string = ''
+   # for key in df_dict:
+    #    if isinstance(df_dict[key], pd.DataFrame):
+       #     html_string += df_dict[key].to_html()
+     #   else:
+      #      html_string += f'<p>{key}: {df_dict[key]}</p>'
 
     # Convert the HTML string to PDF
-    pdfkit.from_string(html_string, 'output.pdf')
+    #pdfkit.from_string(html_string, 'output.pdf')
 
   # Call the function with your dictionary
-  df_to_pdf(df_pdf_output)
+  #df_to_pdf(df_pdf_output)
 
   # Function to get download link for the pdf
-  def get_pdf_download_link(pdf_file, download_name):
-    with open(pdf_file, 'rb') as f:
-        pdf = f.read()
-    
+  #def get_pdf_download_link(pdf_file, download_name):
+   # with open(pdf_file, 'rb') as f:
+    #    pdf = f.read()
+    #
     # b64 encode
-    b64 = base64.b64encode(pdf)
-    b64 = b64.decode()
+    #b64 = base64.b64encode(pdf)
+    #b64 = b64.decode()
     
-    href = f'<a href="data:file/pdf;base64,{b64}" download="{download_name}.pdf">Download PDF</a>'
-    return href
+    #href = f'<a href="data:file/pdf;base64,{b64}" download="{download_name}.pdf">Download PDF</a>'
+    #return href
 
   # Call the function to generate download link
-  download_link = get_pdf_download_link('output.pdf', 'output')
-  st.sidebar.markdown(download_link, unsafe_allow_html=True)
+  #download_link = get_pdf_download_link('output.pdf', 'output')
+  #st.sidebar.markdown(download_link, unsafe_allow_html=True)
   
   
 
