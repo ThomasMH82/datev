@@ -214,11 +214,19 @@ if uploaded_file is not None:
   # Call the function to generate download link
   #download_link = get_pdf_download_link('output.pdf', 'output')
   #st.sidebar.markdown(download_link, unsafe_allow_html=True)
-    
-  
+  def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
+    """Generiert einen Download-Link für ein DataFrame"""
+    towrite = io.BytesIO()
+    df.to_excel(towrite, index=True, encoding='utf-8')  # Schreiben Sie das DataFrame in ein Byte-Objekt
+    towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
+    b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
+    link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
+    return link
 
-  
+# Nachdem Sie die Pivot-Tabelle erstellt haben, fügen Sie den Download-Link hinzu:
+
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
+  st.markdown(get_table_download_link(stb_umstz), unsafe_allow_html=True)
 
