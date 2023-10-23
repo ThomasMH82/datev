@@ -223,10 +223,13 @@ if uploaded_file is not None:
       b64 = base64.b64encode(xlsx_data).decode()  # B64 codieren
       href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}.xlsx">Download Excel File</a>'
       return href
+
+      print(href)
+      print(get_excel_download_link)
   
 
   
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
-  st.sidebar.markdown(get_excel_download_link(df, 'data'), unsafe_allow_html=True)
+ #st.sidebar.markdown(get_excel_download_link(df, 'data'), unsafe_allow_html=True)
