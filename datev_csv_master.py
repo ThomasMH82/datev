@@ -2,9 +2,9 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import numpy as np
-# import io
+import io
 #import pdfkit
-# import base64
+import base64
 #from tempfile import NamedTemporaryFile
 
 #Seiteneinstellungen
