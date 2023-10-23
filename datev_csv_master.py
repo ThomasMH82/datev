@@ -223,7 +223,7 @@ if uploaded_file is not None:
     link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
     return link
 
-  st.markdown.(get_table_download_link(stb_umstz), unsafe_allow_html=True)
+  st.markdown(get_table_download_link(stb_umstz, "pivot_data.xlsx", "Download Pivot Daten als Excel"), unsafe_allow_html=True)
 
 # Nachdem Sie die Pivot-Tabelle erstellt haben, fügen Sie den Download-Link hinzu:
 
