@@ -228,5 +228,5 @@ if uploaded_file is not None:
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
-  st.markdown(get_table_download_link(stb_umstz), unsafe_allow_html=True)
+  st.sidebar.markdown(get_table_download_link(stb_umstz), unsafe_allow_html=True)
 
