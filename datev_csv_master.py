@@ -3,7 +3,7 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 #import pdfkit
-#import base64
+import base64
 #from tempfile import NamedTemporaryFile
 
 #Seiteneinstellungen
@@ -213,10 +213,19 @@ if uploaded_file is not None:
   # Call the function to generate download link
   #download_link = get_pdf_download_link('output.pdf', 'output')
   #st.sidebar.markdown(download_link, unsafe_allow_html=True)
-  
+  def get_excel_download_link(df, filename):
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, sheet_name='Sheet1', index=False)
+    writer.save()
+    xlsx_data = output.getvalue()
+    b64 = base64.b64encode(xlsx_data).decode()  # B64 codieren
+    href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}.xlsx">Download Excel File</a>'
+    return href
   
 
   
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
+  st.sidebar.markdown(get_excel_download_link(df, 'data'), unsafe_allow_html=True)
