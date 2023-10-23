@@ -223,10 +223,12 @@ if uploaded_file is not None:
     link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
     return link
 
+  st.markdown.(get_table_download_link(stb_umstz), unsafe_allow_html=True)
+
 # Nachdem Sie die Pivot-Tabelle erstellt haben, fügen Sie den Download-Link hinzu:
 
   #Erklärung und Beispiel
   st.sidebar.markdown("<h3 style='text-align: center;'>Erklärung:</h3>", unsafe_allow_html=True)
   st.sidebar.markdown("In der App kannst du eine CSV Datei hochladen. Nach dem Hochladen werden dir die Umsätze angezeigt.")
-  st.sidebar.markdown(get_table_download_link(stb_umstz), unsafe_allow_html=True)
+  
 
