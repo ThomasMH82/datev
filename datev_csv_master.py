@@ -214,7 +214,7 @@ if uploaded_file is not None:
   # Call the function to generate download link
   #download_link = get_pdf_download_link('output.pdf', 'output')
   #st.sidebar.markdown(download_link, unsafe_allow_html=True)
-    def get_excel_download_link(df):
+    def get_excel_download_link(df, filename):
       output = io.BytesIO()
       writer = pd.ExcelWriter(output, engine='xlsxwriter')
       df.to_excel(writer, sheet_name='Sheet1', index=False)
