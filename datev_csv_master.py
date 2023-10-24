@@ -133,7 +133,7 @@ if uploaded_file is not None:
     
     return pivot_table
 
-      def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
+    def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
        """Generiert einen Download-Link für ein DataFrame"""
         towrite = io.BytesIO()
         df.to_excel(towrite, index=True, engine='openpyxl')  # Schreiben Sie das DataFrame in ein Byte-Objekt
