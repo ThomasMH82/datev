@@ -133,14 +133,43 @@ if uploaded_file is not None:
     
     return pivot_table
 
-  def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
-    """Generiert einen Download-Link für ein DataFrame"""
-    towrite = io.BytesIO()
-    df.to_excel(towrite, index=True, engine='openpyxl')  # Schreiben Sie das DataFrame in ein Byte-Objekt
-    towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
-    b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
-    link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
+  #def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
+   # """Generiert einen Download-Link für ein DataFrame"""
+    #towrite = io.BytesIO()
+    #df.to_excel(towrite, index=True, engine='openpyxl')  # Schreiben Sie das DataFrame in ein Byte-Objekt
+    #towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
+    #b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
+    #link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
     return link
+
+  def get_table_download_link(df, filename, link_label):
+    towrite = io.BytesIO()
+
+    # Erstellen Sie einen ExcelWriter-Objekt
+    with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
+        # Schreibe die Pivot-Tabelle in das Excel-Dokument
+        df.to_excel(writer, sheet_name='Pivot Daten', startrow=7)
+
+        # Schreiben Sie die Umsatzinformationen in dasselbe Blatt
+        data = {
+            'Kategorie': ['Umsatz 7%', 'Steuer 7%', 'Netto 7%', 'Umsatz 19%', 'Steuer 19%', 'Netto 19%'],
+            'Betrag': [monat7gesamt, steuer7, netto7, monat19gesamt, steuer19, netto19]
+        }
+        summary_df = pd.DataFrame(data)
+        summary_df.to_excel(writer, sheet_name='Pivot Daten', startrow=1, index=False, header=False)
+
+        # Formatierung (optional, aber macht es schöner)
+        for column in summary_df:
+            max_length = max(summary_df[column].astype(str).map(len).max(),  # max length in column
+                             len(str(column)))  # length of column name/header
+            col_idx = summary_df.columns.get_loc(column)
+            writer.sheets['Pivot Daten'].set_column(col_idx, col_idx, max_length)  # set column width
+
+    towrite.seek(0)
+    b64 = base64.b64encode(towrite.read()).decode()
+    link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{link_label}</a>'
+    return link
+
 
   # Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
   stb_umstz = stb_pivot(df)
