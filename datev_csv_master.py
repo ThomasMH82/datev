@@ -140,12 +140,11 @@ if uploaded_file is not None:
     #towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
     #b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
     #link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
-    return link
+    #return link
 
-  def get_table_download_link(df, filename, link_label):
+ def get_table_download_link(df, filename, link_label):
     towrite = io.BytesIO()
 
-    # Erstellen Sie einen ExcelWriter-Objekt
     with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
         # Schreibe die Pivot-Tabelle in das Excel-Dokument
         df.to_excel(writer, sheet_name='Pivot Daten', startrow=7)
@@ -158,12 +157,19 @@ if uploaded_file is not None:
         summary_df = pd.DataFrame(data)
         summary_df.to_excel(writer, sheet_name='Pivot Daten', startrow=1, index=False, header=False)
 
-        # Formatierung (optional, aber macht es schöner)
-        for column in summary_df:
-            max_length = max(summary_df[column].astype(str).map(len).max(),  # max length in column
-                             len(str(column)))  # length of column name/header
-            col_idx = summary_df.columns.get_loc(column)
-            writer.sheets['Pivot Daten'].set_column(col_idx, col_idx, max_length)  # set column width
+        # Access the Openpyxl worksheet for additional formatting
+        worksheet = writer.sheets['Pivot Daten']
+        for column in worksheet.columns:
+            max_length = 0
+            column = [cell for cell in column]
+            for cell in column:
+                try:
+                    if len(str(cell.value)) > max_length:
+                        max_length = len(cell.value)
+                except:
+                    pass
+            adjusted_width = (max_length + 2)
+            worksheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
     towrite.seek(0)
     b64 = base64.b64encode(towrite.read()).decode()
