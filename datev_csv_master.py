@@ -143,9 +143,9 @@ if uploaded_file is not None:
     #return link
 
    def get_table_download_link(df, filename, link_label):
-      towrite = io.BytesIO()
+       towrite = io.BytesIO()
 
-      with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
+       with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
         # Schreibe die Pivot-Tabelle in das Excel-Dokument
         df.to_excel(writer, sheet_name='Pivot Daten', startrow=7)
 
@@ -171,10 +171,10 @@ if uploaded_file is not None:
             adjusted_width = (max_length + 2)
             worksheet.column_dimensions[column[0].column_letter].width = adjusted_width
 
-      towrite.seek(0)
-      b64 = base64.b64encode(towrite.read()).decode()
-      link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{link_label}</a>'
-      return link
+        towrite.seek(0)
+        b64 = base64.b64encode(towrite.read()).decode()
+        link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{link_label}</a>'
+        return link
 
 
 
