@@ -142,7 +142,7 @@ if uploaded_file is not None:
     #link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
     #return link
 
-   def get_table_download_link(df, filename, link_label):
+  def get_table_download_link(df, filename, link_label):
        towrite = io.BytesIO()
 
        with pd.ExcelWriter(towrite, engine='openpyxl') as writer:
