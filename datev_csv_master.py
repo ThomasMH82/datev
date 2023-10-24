@@ -133,14 +133,14 @@ if uploaded_file is not None:
     
     return pivot_table
 
-    def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
-   """Generiert einen Download-Link für ein DataFrame"""
-      towrite = io.BytesIO()
-      df.to_excel(towrite, index=True, engine='openpyxl')  # Schreiben Sie das DataFrame in ein Byte-Objekt
-      towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
-      b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
-      link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
-      return link
+      def get_table_download_link(df, filename="data.xlsx", label="Download data as Excel"):
+       """Generiert einen Download-Link für ein DataFrame"""
+        towrite = io.BytesIO()
+        df.to_excel(towrite, index=True, engine='openpyxl')  # Schreiben Sie das DataFrame in ein Byte-Objekt
+        towrite.seek(0)  # Gehen Sie zum Beginn des Byte-Objekts zurück
+        b64 = base64.b64encode(towrite.read()).decode()  # Kodieren Sie das Byte-Objekt als base64
+        link = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="{filename}">{label}</a>'
+        return link
 
     # Verwenden Sie Streamlit, um die Pivot-Tabelle auszugeben
   stb_umstz = stb_pivot(df)
